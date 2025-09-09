@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+rasa
+huggingface_hub
+pyyaml
+pydantic
+requests            # (huggingface_hub dependency, but often useful directly)
+aiohttp 

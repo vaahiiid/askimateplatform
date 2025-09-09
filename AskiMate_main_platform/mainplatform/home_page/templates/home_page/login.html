@@ -1,0 +1,286 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="{% static 'images/askimate.png' %}" type="image/png">
+  <title>Login - AskiMate</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #42147d;
+      --secondary: #fca82e;
+      --white: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--white);
+      background-image: url("{% static 'images/auth-bg-pattern.svg' %}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .auth-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(66, 20, 125, 0.15);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 420px;
+      position: relative;
+      border: 1px solid rgba(66, 20, 125, 0.1);
+    }
+
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .auth-logo img {
+      height: 70px;
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .auth-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.05);
+    }
+
+    .auth-header p {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 0 auto 1.2rem;
+    }
+
+    .form-control {
+      height: 50px;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(252, 168, 46, 0.25);
+    }
+
+    .input-group-text {
+      background-color: rgba(66, 20, 125, 0.05);
+      border: 1px solid #e0e0e0;
+      border-right: none;
+      color: var(--primary);
+      height: 50px;
+      border-radius: 8px 0 0 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 0.75rem;
+    }
+
+    .input-group .form-control {
+      border-left: none;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .btn-auth {
+      background-color: var(--secondary);
+      color: var(--white);
+      border: none;
+      width: 100%;
+      padding: 0.75rem;
+      font-weight: 600;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-shadow: 0 4px 6px rgba(252, 168, 46, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-auth:hover {
+      background-color: #e99e27;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(252, 168, 46, 0.3);
+    }
+
+    .btn-google {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 1px solid rgba(66, 20, 125, 0.2);
+      padding: 0.75rem;
+      font-weight: 500;
+      width: 100%;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .btn-google:hover {
+      background-color: rgba(66, 20, 125, 0.05);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-google img {
+      height: 20px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(66, 20, 125, 0.2);
+      margin: 0 0.75rem;
+    }
+
+    .error-message {
+      background-color: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #dc3545;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    .auth-footer a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .auth-footer a:hover {
+      color: var(--secondary);
+    }
+
+    @media (max-width: 576px) {
+      .auth-card {
+        padding: 1.75rem;
+      }
+
+      .auth-header h2 {
+        font-size: 1.6rem;
+      }
+
+      .auth-logo img {
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-logo">
+        <img src="{% static 'images/askimate.png' %}" alt="AskiMate Logo">
+      </div>
+      <h2>Welcome Back</h2>
+      <p>Login to continue your journey</p>
+    </div>
+
+    {% if error %}
+      <div class="error-message">
+        <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'email_login' %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+          <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-auth">
+        <i class="fas fa-sign-in-alt me-1"></i> Continue with Email
+      </button>
+    </form>
+
+    <div class="divider">or</div>
+
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google">
+      <img src="https://cdn.iconscout.com/icon/free/png-256/google-470-675827.png" alt="Google Icon">
+      Continue with Google
+    </a>
+
+    <div class="auth-footer">
+      Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelector('input[name="email"]').focus();
+    });
+  </script>
+
+</body>
+</html>

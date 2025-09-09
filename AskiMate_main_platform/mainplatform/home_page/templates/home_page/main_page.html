@@ -1,0 +1,1091 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="{% static 'images/askimate.png' %}" type="image/png">
+  <title>AskiMate</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #42147d;
+      --secondary: #fca82e;
+      --dark: #321162;
+      --light: #fff3d1;
+      --white: #ffffff;
+    }
+    
+    body {
+      background-color: var(--white);
+      color: var(--primary);
+      padding-top: 70px; /* کاهش پدینگ برای نوبار */
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* ====== Improved Title Styles ====== */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      background: linear-gradient(90deg, var(--primary), var(--dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      padding-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      bottom: -10px;
+      left: 0;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    /* ====== New Contact Modal Styles ====== */
+    .contact-modal .modal-content {
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(66, 20, 125, 0.2);
+    }
+
+    .contact-modal .modal-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+      color: white;
+      border-bottom: none;
+      padding: 1.5rem;
+    }
+
+    .contact-modal .modal-title {
+      font-weight: 600;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .contact-modal .modal-body {
+      padding: 2rem;
+    }
+
+    .contact-modal .btn-close {
+      filter: invert(1);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+    }
+
+    .contact-modal .btn-close:hover {
+      opacity: 1;
+      transform: rotate(90deg);
+    }
+
+    .contact-modal .form-control {
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e0e0e0;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .contact-modal .form-control:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 0.25rem rgba(252, 168, 46, 0.25);
+    }
+
+    .contact-modal .submit-btn {
+      background: var(--secondary);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      width: 100%;
+      margin-top: 1rem;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-modal .submit-btn:hover {
+      background: #e99e27;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(252, 168, 46, 0.3);
+    }
+
+    /* Buttons */
+    .btn-brand {
+      background-color: var(--secondary);
+      color: var(--white);
+      border: none;
+      transition: all 0.3s ease;
+      padding: 0.6rem 1.5rem;
+      font-weight: 500;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(252, 168, 46, 0.25);
+    }
+
+    .btn-brand:hover {
+      background-color: #e99e27;
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(252, 168, 46, 0.3);
+    }
+
+    /* Header & Navbar */
+    header {
+      z-index: 1030;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar-fixed {
+      background: var(--white) !important;
+      box-shadow: none !important; /* حذف سایه در حالت اولیه */
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar-fixed.scrolled {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important; /* اضافه کردن سایه هنگام اسکرول */
+    }
+
+    a.nav-link {
+      color: var(--primary) !important;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 1rem;
+    }
+
+    a.nav-link:hover {
+      color: var(--secondary) !important;
+    }
+
+    a.nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    a.nav-link:hover::after {
+      width: 70%;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1.2px;
+      color: var(--primary) !important;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar-brand:hover {
+      color: var(--secondary) !important;
+    }
+
+    .navbar-brand i {
+      font-size: 1.4rem;
+    }
+
+    /* تغییرات جدید برای لوگو */
+    .navbar-brand img {
+      filter: none !important;
+      height: 50px !important; /* افزایش سایز لوگو به 50px */
+      transition: all 0.3s ease;
+    }
+
+    /* تغییرات جدید برای نوبار */
+    .navbar {
+      padding-top: 0.5rem; /* کاهش بیشتر پدینگ بالا */
+      padding-bottom: 0.5rem; /* کاهش بیشتر پدینگ پایین */
+      min-height: 70px;
+    }
+
+    .navbar-nav .nav-item {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Offcanvas style for mobile */
+    .offcanvas.bg-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+    }
+
+    .offcanvas .nav-link {
+      color: var(--white) !important;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      padding: 0.5rem 0;
+    }
+
+    .offcanvas .nav-link:hover {
+      color: var(--secondary) !important;
+    }
+
+    .offcanvas .btn-brand {
+      background-color: var(--secondary);
+      color: var(--white);
+      margin-top: 1rem;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 4rem;
+      padding-top: 1rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+    }
+
+    /* Background variations for sections */
+    #join {
+      background-color: rgba(255, 243, 209, 0.2);
+      margin-top: 0;
+    }
+    
+    #about {
+      background-color: rgba(66, 20, 125, 0.05);
+    }
+    
+    #careers {
+      background-color: rgba(252, 168, 46, 0.05);
+    }
+    
+    #contact {
+      background-color: rgba(66, 20, 125, 0.05);
+    }
+
+    /* Hero Section */
+    #join {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #join::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(252, 168, 46, 0.1) 0%, rgba(252, 168, 46, 0) 70%);
+      top: -200px;
+      right: -200px;
+      z-index: -1;
+    }
+
+    /* استایل جدید برای عنوان AskiMate */
+    .askimate-gradient {
+      background: linear-gradient(90deg, #42147d, #fca82e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+      font-size: 3rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .tagline {
+      display: block;
+      font-weight: 700;
+      font-size: 1.8rem;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    #join h1 {
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInDown 0.8s ease forwards;
+    }
+
+    #join p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s ease 0.3s forwards;
+    }
+
+    .join-box {
+      border: 2px solid var(--secondary);
+      padding: 2rem;
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(252, 168, 46, 0.2);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUpBox 0.8s ease forwards;
+      animation-delay: 0.6s;
+      transition: all 0.3s ease;
+      margin: 0 auto;
+      max-width: 500px;
+    }
+
+    .join-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(252, 168, 46, 0.3);
+    }
+
+    .join-box h4 {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .form-control {
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      border: 1px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 0.25rem rgba(252, 168, 46, 0.25);
+    }
+
+    /* About Section */
+    #about p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    #about p:nth-child(1) { animation: fadeIn 0.8s ease 0.2s forwards; }
+    #about p:nth-child(2) { animation: fadeIn 0.8s ease 0.4s forwards; }
+    #about p:nth-child(3) { animation: fadeIn 0.8s ease 0.6s forwards; }
+    #about p:nth-child(4) { animation: fadeIn 0.8s ease 0.8s forwards; }
+    #about p:nth-child(5) { animation: fadeIn 0.8s ease 1.0s forwards; }
+    #about p:nth-child(6) { animation: fadeIn 0.8s ease 1.2s forwards; }
+    #about p:nth-child(7) { animation: fadeIn 0.8s ease 1.4s forwards; }
+
+    /* Team Section */
+    .team-member {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.5s ease;
+    }
+
+    .team-member:nth-child(1) { animation: fadeInUp 0.8s ease 0.2s forwards; }
+    .team-member:nth-child(2) { animation: fadeInUp 0.8s ease 0.4s forwards; }
+
+    .team-member img {
+      border: 5px solid var(--white);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .team-member img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .team-member h5 {
+      margin-top: 1rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .team-member p {
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+
+    .team-member a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .team-member a:hover {
+      color: var(--secondary);
+    }
+
+    /* Careers Section */
+    #careers p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    /* استایل جدید برای خط زیر Contact Us */
+    #contact h2::after {
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      bottom: -15px !important;
+    }
+
+    /* ====== Improved Footer Styles ====== */
+footer {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+  color: var(--white);
+  padding: 4rem 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  z-index: 1;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-section {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+.footer-section h5 {
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 1.2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.footer-section h5::after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary);
+  transition: width 0.3s ease;
+}
+
+.footer-section:hover h5::after {
+  width: 70px;
+}
+
+/* استایل جدید برای لینک‌ها و متن‌های فوتر */
+.footer-section p,
+.footer-section a {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  position: relative;
+}
+
+.footer-section a {
+  padding: 0.3rem 0;
+}
+
+.footer-section a:hover {
+  color: var(--secondary) !important;
+  transform: translateX(8px);
+}
+
+.footer-section a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--secondary);
+  transition: width 0.3s ease;
+}
+
+.footer-section a:hover::after {
+  width: 100%;
+}
+
+/* استایل جدید برای آیکون‌ها */
+.footer-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--secondary);
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+}
+
+.footer-section a:hover .footer-icon {
+  color: var(--secondary);
+  transform: scale(1.2);
+}
+
+/* بخش پایینی فوتر */
+.footer-bottom {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 2;
+}
+
+/* افکت پس‌زمینه */
+footer::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(252, 168, 46, 0.1) 0%, rgba(252, 168, 46, 0) 70%);
+  bottom: -50px;
+  right: -50px;
+  z-index: 1;
+}
+
+/* رسپانسیو */
+@media (max-width: 768px) {
+  footer {
+    padding: 3rem 1rem;
+  }
+  
+  .footer-container {
+    gap: 1.5rem;
+  }
+  
+  .footer-section {
+    flex: 1 1 100%;
+    min-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+  
+  .footer-section h5 {
+    font-size: 1.1rem;
+  }
+}
+
+    /* دکمه برگشت به بالا */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background-color: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .back-to-top:hover {
+      background-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Scroll animations */
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInUpBox {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Scroll behavior for sections */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease;
+    }
+
+    .animate-on-scroll.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+      #join {
+        min-height: auto;
+        padding: 3rem 0;
+      }
+      
+      .askimate-gradient {
+        font-size: 2.5rem;
+      }
+      
+      .tagline {
+        font-size: 1.5rem;
+      }
+      
+      section {
+        margin-bottom: 3rem;
+      }
+
+      /* تغییرات ریسپانسیو برای لوگو */
+      .navbar-brand img {
+        height: 45px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .askimate-gradient {
+        font-size: 2rem;
+      }
+      
+      .tagline {
+        font-size: 1.3rem;
+      }
+      
+      .join-box {
+        margin-top: 1.5rem;
+      }
+      
+      section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .contact-modal .modal-body {
+        padding: 1.5rem;
+      }
+
+      /* تغییرات ریسپانسیو برای نوبار */
+      .navbar-brand img {
+        height: 40px !important;
+      }
+
+      body {
+        padding-top: 60px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .contact-modal .modal-header {
+        padding: 1rem;
+      }
+      
+      .contact-modal .modal-title {
+        font-size: 1.25rem;
+      }
+
+      .navbar-brand img {
+        height: 35px !important;
+      }
+
+      .navbar {
+        min-height: 60px;
+      }
+
+      section {
+        padding: 1rem;
+      }
+
+      /* تغییرات ریسپانسیو برای دکمه برگشت به بالا */
+      .back-to-top {
+        width: 40px;
+        height: 40px;
+        bottom: 20px;
+        right: 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header with Fixed Navbar -->
+<header class="fixed-top navbar-fixed">
+  <nav class="navbar navbar-expand-md navbar-light py-2">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#" onclick="window.location.reload()">
+        <img src="{% static 'images/askimate.png' %}" alt="AskiMate" height="40" class="d-inline-block align-top">
+      </a>
+
+      <!-- Toggler برای موبایل -->
+      <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileNav" aria-controls="mobileNav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- منوی دسکتاپ (فقط در سایز md به بالا) -->
+      <ul class="navbar-nav ms-auto d-none d-md-flex align-items-center">
+        <li class="nav-item"><a href="#about" class="nav-link px-3"><i class="fas fa-info-circle me-1"></i> About Us</a></li>
+        <li class="nav-item"><a href="#careers" class="nav-link px-3"><i class="fas fa-briefcase me-1"></i> Careers</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link px-3"><i class="fas fa-envelope me-1"></i> Contact Us</a></li>
+        <li class="nav-item ms-3">
+          <a href="{% url 'custom_login' %}" class="btn btn-sm btn-brand px-4"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+        </li>
+      </ul>
+
+      <!-- Offcanvas برای موبایل -->
+      <div class="offcanvas offcanvas-end bg-primary text-white d-md-none" tabindex="-1" id="mobileNav" aria-labelledby="mobileNavLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="mobileNavLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a href="#about" class="nav-link"><i class="fas fa-info-circle me-2"></i> About Us</a></li>
+            <li class="nav-item"><a href="#careers" class="nav-link"><i class="fas fa-briefcase me-2"></i> Careers</a></li>
+            <li class="nav-item"><a href="#contact" class="nav-link"><i class="fas fa-envelope me-2"></i> Contact Us</a></li>
+            <li class="nav-item mt-3">
+              <a href="{% url 'custom_login' %}" class="btn btn-brand w-100"><i class="fas fa-sign-in-alt me-2"></i> Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+
+<main class="container pt-4 my-4">
+
+  {% if messages %}
+  <div class="container mb-4">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+<!-- Hero Section -->
+<section class="row align-items-center" id="join">
+  <div class="col-12 col-md-8 mx-auto text-center">
+    <h1>
+      <span class="askimate-gradient">AskiMate</span>
+      <span class="tagline d-block">Your AI Mate for Studying Abroad</span>
+    </h1>
+    <p>From course selection and applications to everyday student life abroad, we are your lifelong AI companion.</p>
+    <div class="d-flex justify-content-center gap-4 mt-4 flex-wrap">
+      <div class="feature-item">
+        <i class="fas fa-check-circle text-secondary me-2"></i>
+        <span>24/7 Support</span>
+      </div>
+      <div class="feature-item">
+        <i class="fas fa-check-circle text-secondary me-2"></i>
+        <span>Expert Advice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- About Us -->
+  <section id="about" class="animate-on-scroll">
+    <h2><i class="fas fa-info-circle me-2"></i>About Us</h2>
+    <p>AskiMate is more than a chatbot — it's your AI Mate for studying abroad.</p>
+    <p>Preparing to study in another country can be exciting — and overwhelming. From choosing the right course and understanding university requirements, to navigating visas, accommodation, and culture shock, there's a lot to figure out. </p>
+    <p>That's where AskiMate comes in.</p>
+    <p>As your personal AI Mate, we're here to support you with smart, friendly, and reliable answers — anytime you need them. Behind the scenes, every response is shaped not only by powerful AI but also reviewed and guided by real experts in international university admissions.</p>
+    <p>Whether you're just starting your journey or have already been accepted, AskiMate helps you move forward with clarity and confidence.</p>
+    <p>One conversation at a time, we're making studying abroad simpler — and smarter.</p>
+  </section>
+
+  <!-- Meet the Team -->
+  <section class="animate-on-scroll">
+    <h2><i class="fas fa-users me-2"></i>Meet the Team</h2>
+    <div class="row text-center">
+      <div class="col-12 col-md-6 mb-4 team-member">
+        <img src="{% static 'images/vahid.jpg' %}" alt="Vahid Mohammadi" class="rounded-circle mb-2" width="150" height="150">
+        <h5>Vahid Mohammadi</h5>
+        <p>Co-Founder - Team Lead</p>
+        <a href="https://www.linkedin.com/in/vahidmohamadi/" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
+      <div class="col-12 col-md-6 mb-4 team-member">
+        <img src="{% static 'images/iman.jpg' %}" alt="Iman Behravan" class="rounded-circle mb-2" width="150" height="150">
+        <h5>Iman Behravan</h5>
+        <p>Co-Founder - Technical Lead</p>
+        <a href="https://www.linkedin.com/in/iman-behravan-22932783" target="_blank">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Careers -->
+  <section id="careers" class="animate-on-scroll">
+    <h2><i class="fas fa-briefcase me-2"></i>Careers</h2>
+    <p>Want to build something meaningful with us?</p>
+    <p>AskiMate is growing — and we're always looking for curious, creative, and passionate people to join our journey.</p>
+    <p>Whether you're into tech, content, design, education, or you just believe you can add value in any way, we'd love to hear from you.</p>
+    <p>Drop us an email at <a href="mailto:careers@askimate.com" style="color: var(--primary);"><i class="fas fa-envelope me-1"></i>careers@askimate.com</a> and let's have a chat.</p>
+  </section>
+
+  <!-- Contact Us -->
+  <section id="contact" class="animate-on-scroll text-center">
+    <h2><i class="fas fa-envelope me-2"></i>Contact Us</h2>
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-brand mb-4" data-bs-toggle="modal" data-bs-target="#contactModal">
+        <i class="fas fa-paper-plane me-2"></i> Open Contact Form
+      </button>
+    </div>
+    <p class="text-muted mb-4">Click the button above to send us a message directly</p>
+  </section>
+
+</main>
+
+<!-- Contact Modal -->
+<div class="modal fade contact-modal" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contactModalLabel"><i class="fas fa-envelope me-2"></i>Contact Us</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'contact_form' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="contactName" class="form-label">Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+              <input type="text" class="form-control" name="contact_name" id="contactName" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="contactEmail" class="form-label">Email</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+              <input type="email" class="form-control" name="contact_email" id="contactEmail" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" name="contact_message" id="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn submit-btn">
+            <i class="fas fa-paper-plane me-2"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-section contact-info">
+      <h5>Contact Us</h5>
+      <p>
+        <i class="fas fa-envelope footer-icon"></i>
+        <a href="mailto:hello@askimate.com">hello@askimate.com</a>
+      </p>
+      <p>
+        <i class="fas fa-phone-alt footer-icon"></i>
+        +44 121 720 3341
+      </p>
+      <p>
+        <i class="fas fa-map-marker-alt footer-icon"></i>
+        Apex House, Birmingham, UK
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h5>Connect with Us</h5>
+      <p>
+        <a href="https://api.whatsapp.com/send/?phone=447963345465" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp footer-icon"></i>
+          WhatsApp
+        </a>
+      </p>
+      <p>
+        <a href="https://www.linkedin.com/company/askimate" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin footer-icon"></i>
+          LinkedIn
+        </a>
+      </p>
+      <p>
+        <a href="https://t.me/askimate" target="_blank" rel="noopener">
+          <i class="fab fa-telegram footer-icon"></i>
+          Telegram
+        </a>
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h5>Quick Links</h5>
+      <p><a href="#"><i class="fas fa-arrow-right me-2"></i>Join Now</a></p>
+      <p><a href="#about"><i class="fas fa-arrow-right me-2"></i>About Us</a></p>
+      <p><a href="#careers"><i class="fas fa-arrow-right me-2"></i>Careers</a></p>
+      <p><a href="#contact"><i class="fas fa-arrow-right me-2"></i>Contact Us</a></p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    &copy; 2025 AskiMate. All rights reserved.
+  </div>
+</footer>
+
+<!-- دکمه برگشت به بالا -->
+<div class="back-to-top" id="backToTop">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('header.navbar-fixed');
+    if(window.scrollY > 50) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+
+  // Scroll animation for sections
+  document.addEventListener('DOMContentLoaded', function() {
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    animateElements.forEach(element => {
+      observer.observe(element);
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 70,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Focus on first input when modal opens
+  document.addEventListener('DOMContentLoaded', function() {
+    const contactModal = document.getElementById('contactModal');
+    if (contactModal) {
+      contactModal.addEventListener('shown.bs.modal', function () {
+        document.getElementById('contactName').focus();
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

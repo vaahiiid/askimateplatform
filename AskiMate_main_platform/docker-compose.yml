@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: askimate_db
+    restart: always
+    environment:
+      POSTGRES_DB: askimate_db
+      POSTGRES_USER: askimate_user
+      POSTGRES_PASSWORD: yourpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - askinet
+
+  web:
+    build:
+      context: ./mainplatform
+    container_name: mainplatform
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./mainplatform:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - ALLOWED_HOSTS=127.0.0.1,localhost,web
+      - DEBUG=True
+      - DB_NAME=askimate_db
+      - DB_USER=askimate_user
+      - DB_PASSWORD=newjeans5
+      - DB_HOST=db
+      - DB_PORT=5432
+      - AI_API_URL=http://ai_app:8000/chat/
+    depends_on:
+      - db
+      - ai_app
+    networks:
+      - askinet
+
+  ai_app:
+    build:
+      context: ./ai_app
+    container_name: ai_app
+    command: uvicorn chat_app:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./ai_app:/app
+    ports:
+      - "8001:8000"
+    networks:
+      - askinet
+
+volumes:
+  postgres_data:
+
+networks:
+  askinet:
+    driver: bridge
