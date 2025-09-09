@@ -1,14 +1,14 @@
-version: "3.9"
-
 services:
   db:
     image: postgres:15
     container_name: askimate_db
     restart: always
+    env_file:
+      - .env
     environment:
-      POSTGRES_DB: askimate_db
-      POSTGRES_USER: askimate_user
-      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -25,18 +25,14 @@ services:
       - ./mainplatform:/app
     ports:
       - "8000:8000"
-    environment:
-      - ALLOWED_HOSTS=127.0.0.1,localhost,web
-      - DEBUG=True
-      - DB_NAME=askimate_db
-      - DB_USER=askimate_user
-      - DB_PASSWORD=newjeans5
-      - DB_HOST=db
-      - DB_PORT=5432
-      - AI_API_URL=http://ai_app:8000/chat/
+    env_file:
+      - .env
     depends_on:
-      - db
-      - ai_app
+      db:
+        condition: service_started
+      ai_app:
+        condition: service_healthy
+    restart: always
     networks:
       - askinet
 
@@ -46,9 +42,26 @@ services:
     container_name: ai_app
     command: uvicorn chat_app:app --host 0.0.0.0 --port 8000
     volumes:
+      # کد برنامه
       - ./ai_app:/app
+      # اعتبارنامه AWS به صورت read-only
+      - /mnt/c/Users/almahdilaptop/.aws:/root/.aws:ro
     ports:
-      - "8001:8000"
+      - "8001:8000" # host:container
+    env_file:
+      - .env
+    environment:
+      AWS_REGION: ${AWS_REGION}
+      BEDROCK_ENDPOINT: ${BEDROCK_ENDPOINT}
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fs http://localhost:8000/health || exit 1"]
+      interval: 30s        # هر 30 ثانیه چک کن
+      timeout: 5s
+      retries: 5
+      start_period: 90s    # ۹۰ ثانیه فرصت بده که مدل کامل لود شه
+
+    restart: always
     networks:
       - askinet
 

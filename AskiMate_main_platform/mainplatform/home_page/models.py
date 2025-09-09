@@ -5,7 +5,7 @@ import uuid
 class ConversationSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='conversations')
     session_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
-    user_language = models.CharField(max_length=50, default='English', help_text='User preferred language')
+    user_language = models.CharField(max_length=255, default='English', help_text='User preferred language')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -17,7 +17,7 @@ class ChatMessage(models.Model):
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     # فیلدهای اختیاری برای ذخیره زبان (در صورت نیاز)
-    detected_language = models.CharField(max_length=50, blank=True, null=True, help_text='Detected language of the message')
+    detected_language = models.CharField(max_length=255, blank=True, null=True, help_text='Detected language of the message')
     original_message = models.TextField(blank=True, null=True, help_text='Original message before translation')
     translated_message = models.TextField(blank=True, null=True, help_text='Translated message')
     is_translated = models.BooleanField(default=False)  # اضافه کردن default=False

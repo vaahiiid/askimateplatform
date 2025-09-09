@@ -554,7 +554,6 @@
   </div>
 </div>
 
-<!-- === JS === -->
 <script>
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
@@ -570,34 +569,64 @@ function scrollChatToBottom() {
 document.addEventListener("DOMContentLoaded", function() {
   scrollChatToBottom();
 
-  // AJAX ارسال پیام
   const chatForm = document.getElementById("chatForm");
+  const chatContainer = document.getElementById("chat");
+
+  function appendMessage(text, sender) {
+    const msgDiv = document.createElement("div");
+    msgDiv.classList.add(sender === "user" ? "user-message" : "bot-message", "message");
+    msgDiv.innerHTML = `
+      ${text}
+      <div class="message-time">
+        ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+      </div>`;
+    chatContainer.appendChild(msgDiv);
+    scrollChatToBottom();
+  }
+
   if (chatForm) {
     chatForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      const formData = new FormData(chatForm);
+      const inputField = document.getElementById("userInput");
+      const userText = inputField.value.trim();
+      if (!userText) return;
+
+      appendMessage(userText, "user");
+      inputField.value = "";
 
       fetch(chatForm.action, {
         method: "POST",
-        body: formData
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value
+        },
+        body: JSON.stringify({ message: userText })
       })
-      .then(res => res.text())
-      .then(html => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, "text/html");
-        const newMessagesHTML = doc.querySelector("#chat").innerHTML;
-        document.querySelector("#chat").innerHTML = newMessagesHTML;
-        chatForm.reset();
-        scrollChatToBottom();
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
+        return res.json();
       })
-      .catch(err => console.error("Error sending message:", err));
+      .then(data => {
+        if (data.ai_reply) {
+          appendMessage(data.ai_reply, "bot");
+        } else {
+          appendMessage("[No reply from AI]", "bot");
+        }
+      })
+      .catch(err => {
+        console.error("Error sending message:", err);
+        appendMessage("[Error communicating with server]", "bot");
+      });
     });
   }
 });
 </script>
 
+<!-- External scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </body>
 </html>
 {% endblock %}

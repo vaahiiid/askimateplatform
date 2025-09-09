@@ -1,25 +1,31 @@
 FROM python:3.9-slim
 
-# Set working dir
+# 1️⃣ ست کردن دایرکتوری کاری
 WORKDIR /app
 
-# Install system dependencies just in case
-RUN apt-get update && apt-get install -y gcc
+# 2️⃣ نصب دیپندنسی‌های سیستمی و curl برای healthcheck
+# - apt-clean برای کم کردن حجم ایمیج
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    curl \
+    nano \
+    unzip \
+ && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements.txt first
+# 3️⃣ کپی requirements.txt برای استفاده از کش لایه‌ها
 COPY requirements.txt .
 
-# Install python dependencies (rasa is heavier, so separate for layer caching)
+# 4️⃣ نصب پکیج‌های پایتون
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your app code
+# 5️⃣ نصب AWS CLI + boto3 فقط یکبار (برای Bedrock/AWS تست)
+RUN pip install --no-cache-dir awscli boto3
+
+# 6️⃣ کپی کل سورس برنامه
 COPY . .
 
-# Make sure your Rasa model is at /app/models
-# (COPY models/ models/ or do a volume mount at runtime)
-
-# Expose port for FastAPI
+# 7️⃣ پورت اپ
 EXPOSE 8000
 
-# Run the app
+# 8️⃣ اجرای پیش‌فرض (FastAPI با Uvicorn)
 CMD ["uvicorn", "chat_app:app", "--host", "0.0.0.0", "--port", "8000"]

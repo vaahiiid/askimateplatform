@@ -1,9 +1,7 @@
-# views.py - Fixed version
-
 import logging
 import os
-import uuid
 import requests
+import traceback
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
@@ -13,8 +11,15 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from .models import ConversationSession, ChatMessage
-
+import json
+import requests
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.views.decorators.csrf import csrf_exempt
+from .models import ConversationSession, ChatMessage
 logger = logging.getLogger(__name__)
 AI_APP_URL = os.getenv("AI_API_URL", "http://ai_app:8000/chat/")
 
@@ -208,112 +213,86 @@ def redirect_to_latest_chat(request):
     return redirect('chatbot-new')
 
 
-@login_required
-def chatbot_main(request, session_id):
-    # همه جلسات کاربر برای سایدبار
-    sessions = ConversationSession.objects.filter(user=request.user).order_by('-created_at')
-    last_session = sessions.first()
+AI_APP_URL = "http://ai_app:8000/chat"  # آدرس سرویس FastAPI
 
-    # پیدا کردن یا خطا
+@login_required
+@csrf_exempt  # یا حذف و استفاده از CSRF token هدر
+def chatbot_main(request, session_id):
     active_session = get_object_or_404(
         ConversationSession,
         session_id=session_id,
         user=request.user
     )
 
-    # پیام‌های سشن
-    messages_qs = ChatMessage.objects.filter(session=active_session).order_by('timestamp')
-
     if request.method == "POST":
-        user_text = request.POST.get('user_input', '').strip()
-        if user_text:
-            # ذخیره پیام کاربر با مقدار پیش‌فرض برای detected_language
-            user_message = ChatMessage.objects.create(
+        try:
+            body_data = json.loads(request.body.decode("utf-8"))
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+        user_text = body_data.get("message", "").strip()
+        ai_reply = None
+        detected_language = None
+
+        if not user_text:
+            return JsonResponse({"error": "Empty message"}, status=400)
+
+        # ثبت پیام کاربر
+        user_message = ChatMessage.objects.create(
+            session=active_session,
+            sender="user",
+            message=user_text,
+            detected_language="Unknown",
+            original_message=user_text
+        )
+
+        # ساخت history برای AI
+        history = [
+            {"role": "user" if m.sender == "user" else "bot", "content": m.message}
+            for m in ChatMessage.objects.filter(session=active_session).order_by("timestamp")
+        ]
+        payload = {
+            "session_id": str(active_session.session_id),
+            "message": user_text,
+            "history": history
+        }
+
+        try:
+            resp = requests.post(AI_APP_URL, json=payload, timeout=120)
+            resp.raise_for_status()
+            data = resp.json()
+
+            ai_reply = data.get("answer", "No reply")
+            detected_language = data.get("detected_language", "English")
+
+            # آپدیت پیام کاربر با زبان شناسایی‌شده
+            user_message.detected_language = detected_language
+            user_message.save()
+
+            # ثبت جواب AI
+            ChatMessage.objects.create(
                 session=active_session,
-                sender='user',
-                message=user_text,
-                detected_language='Unknown', # مقدار پیش‌فرض موقت
-                original_message=user_text,
-                translated_message=None,  # اضافه کردن این خط
-                is_translated=False
+                sender="bot",
+                message=ai_reply,
+                detected_language=detected_language,
+                original_message=ai_reply
             )
+        except Exception as e:
+            ai_reply = f"[Error] {str(e)}"
 
-            updated_messages_qs = ChatMessage.objects.filter(session=active_session).order_by('timestamp')
-            history = [
-                {"role": "user" if m.sender == "user" else "bot", "content": m.message}
-                for m in updated_messages_qs
-            ]
+        return JsonResponse({
+            "ai_reply": ai_reply,
+            "user_message": user_text,
+            "detected_language": detected_language
+        })
 
-            payload = {
-                "session_id": str(active_session.session_id),
-                "message": user_text,
-                "history": history
-            }
-
-            print('history (main platform): \n', history)
-
-            # ارسال به AI
-            try:
-                response = requests.post(AI_APP_URL, json=payload, timeout=20)
-                if response.status_code == 200:
-                    response_data = response.json()
-                    ai_reply = response_data.get("answer", "No AI reply received.")
-                    
-                    # دریافت و ذخیره زبان شناسایی شده
-                    detected_language = response_data.get("detected_language", "English")
-                    
-                    # به‌روزرسانی زبان شناسایی شده برای پیام کاربر
-                    user_message.detected_language = detected_language
-                    user_message.save()
-                    
-                    # به‌روزرسانی زبان کاربر در سشن در صورت لزوم
-                    if detected_language and active_session.user_language != detected_language:
-                        active_session.user_language = detected_language
-                        active_session.save()
-                        print(f"Updated user language to: {detected_language}")
-                        
-                    # ذخیره پاسخ بات
-                    ChatMessage.objects.create(
-                        session=active_session,
-                        sender='bot',
-                        message=ai_reply,
-                        detected_language=detected_language,
-                        original_message=ai_reply,
-                        translated_message=None,  # اضافه کردن این خط
-                        is_translated=True if detected_language.lower() != 'english' else False
-                    )
-                else:
-                    ai_reply = f"[Error] AI returned status {response.status_code}"
-                    # ذخیره پیام خطا
-                    ChatMessage.objects.create(
-                        session=active_session,
-                        sender='bot',
-                        message=ai_reply,
-                        detected_language='English',
-                        original_message=ai_reply,
-                        translated_message=None,  # اضافه کردن این خط
-                        is_translated=False
-                    )
-            except requests.exceptions.RequestException as e:
-                ai_reply = f"[Error connecting to AI service] {e}"
-                # ذخیره پیام خطا
-                ChatMessage.objects.create(
-                    session=active_session,
-                    sender='bot',
-                    message=ai_reply,
-                    detected_language='English',
-                    original_message=ai_reply,
-                    translated_message=None,  # اضافه کردن این خط
-                    is_translated=False
-                )
-
-        return redirect('chatbot-main', session_id=active_session.session_id)
-
-    return render(request, 'home_page/chat.html', {
-        'sessions': sessions,
-        'active_session': active_session,
-        'messages': messages_qs,
-        'last_session': last_session
+    # GET → لود صفحه چت
+    sessions = ConversationSession.objects.filter(user=request.user).order_by("-created_at")
+    messages_qs = ChatMessage.objects.filter(session=active_session).order_by("timestamp")
+    return render(request, "home_page/chat.html", {
+        "sessions": sessions,
+        "active_session": active_session,
+        "messages": messages_qs
     })
 
 

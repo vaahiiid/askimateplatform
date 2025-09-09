@@ -1,0 +1,21 @@
+# Environment variables
+.env
+
+# SQLite database
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Logs
+*.log
+
+# Media/static temp
+media/
+staticfiles/
+
+# VS Code settings
+.vscode/
+.env.production

@@ -3545,3 +3545,1048 @@ django.db.utils.DataError: value too long for type character varying(10)
 [2025-09-08 14:57:54,196] INFO django.utils.autoreload: Watching for file changes with StatReloader
 [2025-09-08 14:57:55,731] INFO django.utils.autoreload: /app/home_page/models.py changed, reloading.
 [2025-09-08 14:57:57,291] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 08:48:00,663] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 08:49:28,152] ERROR django.request: Internal Server Error: /login/password/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column home_page_conversationsession.user_language does not exist
+LINE 1: ...d", "home_page_conversationsession"."session_id", "home_page...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 165, in password_login_view
+    last_session = ConversationSession.objects.filter(user=user).order_by('-created_at').first()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1104, in first
+    for obj in queryset[:1]:
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 384, in __iter__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column home_page_conversationsession.user_language does not exist
+LINE 1: ...d", "home_page_conversationsession"."session_id", "home_page...
+                                                             ^
+
+[2025-09-09 09:57:21,572] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 09:58:31,287] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:00:00,688] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:01:13,591] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:04:10,253] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:05:04,247] ERROR django.request: Internal Server Error: /chat/56cf574d-fdd5-456e-a1ea-6d06a0180905/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedColumn: column home_page_chatmessage.is_translated does not exist
+LINE 1: ...e", "home_page_chatmessage"."translated_message", "home_page...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 312, in chatbot_main
+    return render(request, 'home_page/chat.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/backends/django.py", line 107, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loader_tags.py", line 56, in render
+    result = self.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 1016, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 977, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/defaulttags.py", line 326, in render
+    if match:
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 398, in __bool__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: column home_page_chatmessage.is_translated does not exist
+LINE 1: ...e", "home_page_chatmessage"."translated_message", "home_page...
+                                                             ^
+
+[2025-09-09 10:06:52,378] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:15:44,143] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:15:55,293] ERROR django.request: Internal Server Error: /oauth/login/google-oauth2/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 244, in _get_session
+    return self._session_cache
+           ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SessionStore' object has no attribute '_session_cache'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/cache.py", line 80, in _view_wrapper
+    response = view_func(request, *args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_django/utils.py", line 58, in wrapper
+    return func(request, backend, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_django/utils.py", line 44, in wrapper
+    return func(request, backend, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_django/views.py", line 23, in auth
+    return do_auth(request.backend, redirect_name=REDIRECT_FIELD_NAME)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_core/actions.py", line 35, in do_auth
+    return backend.start()
+           ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_core/backends/base.py", line 42, in start
+    return self.strategy.redirect(self.auth_url())
+                                  ^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_core/backends/oauth.py", line 365, in auth_url
+    state = self.get_or_create_state()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_core/backends/oauth.py", line 84, in get_or_create_state
+    state = self.strategy.session_get(name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/social_django/strategy.py", line 129, in session_get
+    return self.session.get(name, default)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 74, in get
+    return self._session.get(key, default)
+           ^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/base.py", line 249, in _get_session
+    self._session_cache = self.load()
+                          ^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 55, in load
+    s = self._get_session_from_db()
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/sessions/backends/db.py", line 34, in _get_session_from_db
+    return self.model.objects.get(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 629, in get
+    num = len(clone)
+          ^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 366, in __len__
+    self._fetch_all()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1949, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.ProgrammingError: relation "django_session" does not exist
+LINE 1: ...ession_data", "django_session"."expire_date" FROM "django_se...
+                                                             ^
+
+[2025-09-09 10:17:28,974] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:34:40,408] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 10:34:43,117] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:36:31,783] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:40:21,751] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 10:40:23,888] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:41:12,652] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 10:41:38,504] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 10:41:39,836] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 10:41:39,852] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 10:41:40,904] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 10:42:22,002] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 11:12:12,624] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:14:02,759] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 11:14:03,470] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 197
+[2025-09-09 11:19:58,644] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:29:32,839] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:32:25,475] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:36:38,800] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:45:00,822] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:45:51,807] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 11:46:34,022] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 11:46:34,528] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 11:46:34,535] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 11:46:35,101] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 11:46:40,182] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 12:26:54,571] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 12:29:38,120] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 12:31:42,683] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 12:31:51,993] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 12:31:52,525] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 12:31:52,543] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 12:31:53,461] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 12:31:58,030] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 12:37:51,608] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 12:38:06,923] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 12:38:30,364] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 12:38:30,814] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 12:38:30,821] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 12:38:31,375] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 12:38:35,604] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 13:13:59,826] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 13:14:07,860] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 13:14:08,354] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 13:14:08,361] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 13:14:08,796] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 13:14:16,225] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 13:14:18,847] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 171
+[2025-09-09 14:01:59,544] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:04:04,313] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:04:11,435] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:04:11,920] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:04:11,934] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:04:12,469] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:04:18,082] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:04:27,690] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:04:29,975] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:04:42,189] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:08:25,752] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:08:29,392] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:08:55,798] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:08:57,715] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:10:06,823] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:10:51,363] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:10:51,834] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:10:51,849] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:10:52,443] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:10:56,325] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:11:11,693] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4629
+[2025-09-09 14:11:11,796] ERROR django.request: Internal Server Error: /chat/078e36e3-f389-4aba-9c61-f17f6a50d2da/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 267, in chatbot_main
+    user_message.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:14:33,362] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:14:44,496] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4731
+[2025-09-09 14:14:44,591] ERROR django.request: Internal Server Error: /chat/4c1c379d-d7a2-4511-8c02-8c4e3731509b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 267, in chatbot_main
+    user_message.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:17:09,507] INFO django.utils.autoreload: /app/home_page/models.py changed, reloading.
+[2025-09-09 14:17:11,606] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:19:40,720] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:19:52,804] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:19:53,258] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:19:53,291] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:19:53,787] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:20:00,371] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:08,667] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:08,860] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:09,036] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:09,181] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:09,334] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:12,900] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4748
+[2025-09-09 14:20:13,010] ERROR django.request: Internal Server Error: /chat/7d558e68-fc5e-416e-b015-ed0c6e1c1b9b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 272, in chatbot_main
+    active_session.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:20:13,102] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:27,746] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4748
+[2025-09-09 14:20:28,021] ERROR django.request: Internal Server Error: /chat/7d558e68-fc5e-416e-b015-ed0c6e1c1b9b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 272, in chatbot_main
+    active_session.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:20:28,218] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:20:46,816] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4633
+[2025-09-09 14:20:46,950] ERROR django.request: Internal Server Error: /chat/7d558e68-fc5e-416e-b015-ed0c6e1c1b9b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 272, in chatbot_main
+    active_session.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:20:47,067] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:21:07,731] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4936
+[2025-09-09 14:21:07,888] ERROR django.request: Internal Server Error: /chat/7d558e68-fc5e-416e-b015-ed0c6e1c1b9b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 272, in chatbot_main
+    active_session.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:21:08,011] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:21:33,417] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4679
+[2025-09-09 14:21:33,623] ERROR django.request: Internal Server Error: /chat/7d558e68-fc5e-416e-b015-ed0c6e1c1b9b/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+psycopg2.errors.StringDataRightTruncation: value too long for type character varying(50)
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 272, in chatbot_main
+    active_session.save()
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 902, in save
+    self.save_base(
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1008, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1138, in _save_table
+    updated = self._do_update(
+              ^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/base.py", line 1203, in _do_update
+    return filtered._update(values) > 0
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/query.py", line 1286, in _update
+    return query.get_compiler(self.db).execute_sql(ROW_COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 2060, in execute_sql
+    row_count = super().execute_sql(result_type)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/models/sql/compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+  File "/usr/local/lib/python3.11/site-packages/django/db/utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/usr/local/lib/python3.11/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django.db.utils.DataError: value too long for type character varying(50)
+
+[2025-09-09 14:21:33,755] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:23:53,680] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:26:12,480] INFO django.utils.autoreload: /app/home_page/models.py changed, reloading.
+[2025-09-09 14:26:15,108] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:28:15,188] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:29:58,925] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:29:59,809] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:29:59,816] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:30:00,371] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:30:06,594] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:30:18,170] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4326
+[2025-09-09 14:34:12,764] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:34:14,920] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:38:55,979] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:39:21,491] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:39:21,961] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:39:21,987] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:39:22,456] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:39:27,757] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:39:41,699] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4660
+[2025-09-09 14:41:53,298] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:41:55,301] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:42:48,853] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:42:51,811] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:43:02,252] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:43:02,712] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:43:02,720] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:43:03,162] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:43:09,736] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:43:21,622] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4761
+[2025-09-09 14:43:21,717] ERROR django.request: Internal Server Error: /chat/7d6e6cbd-e2bc-4696-ae7e-b055bc576b89/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 284, in chatbot_main
+    return JsonResponse({
+           ^^^^^^^^^^^^
+NameError: name 'JsonResponse' is not defined
+[2025-09-09 14:43:39,537] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:43:41,676] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:43:47,284] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:43:57,084] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4992
+[2025-09-09 14:45:25,157] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:45:32,496] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:45:42,200] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:45:55,148] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4678
+[2025-09-09 14:45:55,231] ERROR django.request: Internal Server Error: /chat/e0e7543b-bac0-4425-a194-5a0b64bf1cea/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 270, in chatbot_main
+    return JsonResponse({"message": raw_log_output})
+           ^^^^^^^^^^^^
+NameError: name 'JsonResponse' is not defined
+[2025-09-09 14:46:53,735] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 14:46:57,064] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:47:11,230] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:53:59,463] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 14:55:46,342] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 14:55:46,768] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 14:55:46,796] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 14:55:47,404] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 14:55:53,120] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:56:06,233] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 5099
+[2025-09-09 14:57:46,281] WARNING django.request: Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-09-09 14:57:53,140] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:57:55,580] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:00,839] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:01,745] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:01,901] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:02,159] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:05,967] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4569
+[2025-09-09 14:58:06,029] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:24,345] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4505
+[2025-09-09 14:58:24,415] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 14:58:48,155] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4200
+[2025-09-09 14:59:13,406] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4345
+[2025-09-09 14:59:43,587] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4717
+[2025-09-09 15:06:02,822] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:06:10,861] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 15:06:11,345] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 15:06:11,357] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 15:06:11,843] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 15:06:12,222] ERROR django.request: Internal Server Error: /chat/82f19546-32ed-4d69-942c-5bd703fc6169/
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/contrib/auth/decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/views/decorators/csrf.py", line 65, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/home_page/views.py", line 274, in chatbot_main
+    return render(request, 'home_page/chat.html', {
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/backends/django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loaders/cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loaders/base.py", line 28, in get_template
+    return Template(
+           ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+               ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 518, in parse
+    raise self.error(token, e)
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 523, in parse
+    self.unclosed_block_tag(parse_until)
+  File "/usr/local/lib/python3.11/site-packages/django/template/base.py", line 590, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 2: 'block'. Looking for one of: endblock.
+[2025-09-09 15:11:01,029] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:11:29,719] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 15:11:30,173] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 15:11:30,188] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 15:11:30,643] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 15:14:35,275] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 15:14:39,255] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:19:46,313] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:20:42,385] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 15:20:42,834] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 15:20:42,844] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 15:20:43,276] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 15:20:46,268] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 15:20:59,401] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4739
+[2025-09-09 15:23:47,038] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 15:23:49,013] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:24:11,435] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 15:24:13,750] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:27:26,725] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 15:27:59,124] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 15:27:59,562] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 15:27:59,569] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 15:28:00,101] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 15:28:06,778] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 15:28:20,171] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4252
+[2025-09-09 17:20:11,402] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 17:21:49,443] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 17:21:50,312] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 17:21:50,327] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 17:21:51,029] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 17:21:58,262] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 17:21:59,732] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 500 21
+[2025-09-09 17:43:51,759] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 17:44:02,113] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 17:44:02,628] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 17:44:02,633] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 17:44:03,184] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 17:44:08,844] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 17:44:17,177] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4226
+[2025-09-09 18:16:45,179] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:16:53,705] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 18:16:54,126] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 18:16:54,133] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 18:16:54,719] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 18:16:59,811] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:17:01,781] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 160
+[2025-09-09 18:21:58,949] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 18:22:01,504] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:28:26,103] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:28:49,220] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 18:28:49,643] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 18:28:49,651] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 18:28:50,201] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 18:29:00,106] WARNING django.request: Bad Request: /chat/970bbdd6-59ca-42f9-9897-25fbfe6eee53/
+[2025-09-09 18:29:07,948] WARNING django.request: Bad Request: /chat/d9c1b3f9-c12f-472d-81d9-2234cc1d1c4a/
+[2025-09-09 18:29:26,648] WARNING django.request: Bad Request: /chat/212a8500-ff89-419a-af5a-a9c2436d81c5/
+[2025-09-09 18:42:26,480] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 18:42:30,973] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:42:39,825] INFO django.utils.autoreload: /app/home_page/views.py changed, reloading.
+[2025-09-09 18:42:42,932] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:44:20,984] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:45:38,175] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 18:45:38,586] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 18:45:38,592] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 18:45:39,149] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 18:45:43,715] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:45:43,718] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:45:45,527] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 160
+[2025-09-09 18:46:26,287] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:46:26,293] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:46:32,683] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4518
+[2025-09-09 18:46:53,250] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:46:53,267] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:46:53,946] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 331
+[2025-09-09 18:47:09,986] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:47:09,991] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:47:17,720] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4432
+[2025-09-09 18:47:35,190] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:47:35,197] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:47:37,942] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 2913
+[2025-09-09 18:48:17,329] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:48:17,346] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:48:18,392] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 322
+[2025-09-09 18:48:29,409] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:48:29,428] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:48:31,331] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 2911
+[2025-09-09 18:49:21,551] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:49:21,554] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:49:22,411] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 160
+[2025-09-09 18:51:55,730] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:51:55,739] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:51:57,076] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 439
+[2025-09-09 18:52:18,052] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 18:52:18,061] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 18:52:25,228] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 4098
+[2025-09-09 18:55:26,141] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:55:33,217] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:55:50,032] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:55:52,852] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:55:54,595] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:55:57,221] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:56:01,643] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:56:03,420] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:56:08,059] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:56:10,930] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 18:56:13,282] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
+[2025-09-09 18:56:17,413] INFO django.utils.autoreload: Watching for file changes with StatReloader

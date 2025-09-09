@@ -4,5 +4,7 @@ rasa
 huggingface_hub
 pyyaml
 pydantic
-requests            # (huggingface_hub dependency, but often useful directly)
+requests           
 aiohttp 
+langdetect
+langdetect==1.0.9
