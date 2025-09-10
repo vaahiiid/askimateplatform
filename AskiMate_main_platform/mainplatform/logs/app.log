@@ -4590,3 +4590,20 @@ django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 2: 'block'.
 [2025-09-09 18:56:10,930] INFO django.utils.autoreload: Watching for file changes with StatReloader
 [2025-09-09 18:56:13,282] INFO django.utils.autoreload: /app/AskiMate_platform/settings.py changed, reloading.
 [2025-09-09 18:56:17,413] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 22:21:18,771] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 22:55:02,936] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-09 22:55:13,365] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-09 22:55:13,924] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-09 22:55:13,932] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-09 22:55:14,358] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-09 22:55:20,941] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-09 22:55:20,944] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-09 22:55:23,121] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 160
+[2025-09-10 08:29:30,749] INFO django.utils.autoreload: Watching for file changes with StatReloader
+[2025-09-10 08:31:02,045] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): accounts.google.com:443
+[2025-09-10 08:31:02,995] DEBUG urllib3.connectionpool: https://accounts.google.com:443 "POST /o/oauth2/token HTTP/1.1" 200 None
+[2025-09-10 08:31:03,008] DEBUG urllib3.connectionpool: Starting new HTTPS connection (1): www.googleapis.com:443
+[2025-09-10 08:31:03,570] DEBUG urllib3.connectionpool: https://www.googleapis.com:443 "GET /oauth2/v3/userinfo HTTP/1.1" 200 None
+[2025-09-10 08:31:11,510] DEBUG urllib3.connectionpool: Starting new HTTP connection (1): ai_app:8000
+[2025-09-10 08:31:11,513] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat HTTP/1.1" 307 0
+[2025-09-10 08:31:15,385] DEBUG urllib3.connectionpool: http://ai_app:8000 "POST /chat/ HTTP/1.1" 200 192
