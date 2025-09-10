@@ -38,5 +38,7 @@ RUN dos2unix ./manage.py && \
 # Expose HTTP port for Render/Gunicorn
 EXPOSE 8000
 
-# Run Gunicorn server directly
-CMD ["gunicorn", "AskiMate_platform.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run migrations, collectstatic, then start Gunicorn
+CMD sh -c "python3 manage.py migrate && \
+           python3 manage.py collectstatic --noinput && \
+           gunicorn AskiMate_main_platform.wsgi:application --bind 0.0.0.0:8000"
