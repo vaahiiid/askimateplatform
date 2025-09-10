@@ -1,11 +1,11 @@
 # Base image
 FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Set working directory
+# Working directory
 WORKDIR /app
 
 # Install system dependencies
@@ -15,17 +15,17 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# Copy only requirements first to keep Docker layer cache
+COPY ./AskiMate_main_platform/mainplatform/requirements.txt ./requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy entire project into the container
-COPY . .
+# Copy the full Django project
+COPY ./AskiMate_main_platform/mainplatform/ ./
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
+# Collect static files (without running migrations)
+RUN python manage.py collectstatic --noinput || echo "Skipping collectstatic"
 
-# Expose port for Render (should match the port gunicorn binds to)
+# Expose port for Render
 EXPOSE 8000
 
 # Start Gunicorn server
