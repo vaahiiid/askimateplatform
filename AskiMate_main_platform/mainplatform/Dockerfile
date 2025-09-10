@@ -5,7 +5,7 @@ FROM python:3.11-slim
 # FORCE_REBUILD را هر بار که می‌خواهی کش بیلد شکسته شود تغییر بده
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    FORCE_REBUILD=2025-09-10-4
+    FORCE_REBUILD=2025-09-10-6
 
 # Set working directory
 WORKDIR /app
@@ -28,6 +28,8 @@ COPY ./AskiMate_main_platform/mainplatform/ ./
 # Normalize manage.py inside container to avoid BOM/CRLF issues
 RUN dos2unix ./manage.py && \
     sed -i '1s/^\xEF\xBB\xBF//' ./manage.py && \
+    echo '#!/usr/bin/env python3' | cat - ./manage.py > temp && mv temp ./manage.py && \
+    chmod +x ./manage.py && \
     echo "---- manage.py (before run) ----" && \
     file ./manage.py && \
     head -n 2 ./manage.py && \
@@ -36,5 +38,5 @@ RUN dos2unix ./manage.py && \
 # Expose HTTP port for Render/Gunicorn
 EXPOSE 8000
 
-# Run Gunicorn server
+# Run Gunicorn server directly
 CMD ["gunicorn", "AskiMate_platform.wsgi:application", "--bind", "0.0.0.0:8000"]
