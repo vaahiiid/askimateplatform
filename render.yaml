@@ -2,8 +2,6 @@ services:
   # Persistent PostgreSQL database
   - type: pserv
     name: askimate-db
-    env: docker
-    image: postgres:15
     plan: standard
     envVars:
       - key: POSTGRES_DB
@@ -15,8 +13,6 @@ services:
     disk:
       name: postgres_data
       mountPath: /var/lib/postgresql/data
-    ports:
-      - port: 5432
     autoDeploy: false
 
   # Django Main Platform
@@ -46,7 +42,6 @@ services:
     dockerCommand: uvicorn chat_app:app --host 0.0.0.0 --port 8000
     envVars:
       - fromGroup: askimate-env
-      # اگر AI App به DB لازم نداره، این دو خط رو حذف کن
       - key: DB_HOST
         value: askimate-db
       - key: DB_PORT
