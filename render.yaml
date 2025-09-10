@@ -1,20 +1,4 @@
 services:
-  # Persistent PostgreSQL database
-  - type: pserv
-    name: askimate-db
-    plan: standard
-    envVars:
-      - key: POSTGRES_DB
-        value: ${DB_NAME}
-      - key: POSTGRES_USER
-        value: ${DB_USER}
-      - key: POSTGRES_PASSWORD
-        value: ${DB_PASSWORD}
-    disk:
-      name: postgres_data
-      mountPath: /var/lib/postgresql/data
-    autoDeploy: false
-
   # Django Main Platform
   - type: web
     name: askimate-mainplatform
@@ -26,12 +10,6 @@ services:
                   gunicorn AskiMate_platform.wsgi:application --bind 0.0.0.0:8000"
     envVars:
       - fromGroup: askimate-env
-      - key: DJANGO_SETTINGS_MODULE
-        value: AskiMate_platform.settings
-      - key: DB_HOST
-        value: askimate-db
-      - key: DB_PORT
-        value: "5432"
     autoDeploy: true
 
   # AI App Service
@@ -42,10 +20,6 @@ services:
     dockerCommand: uvicorn chat_app:app --host 0.0.0.0 --port 8000
     envVars:
       - fromGroup: askimate-env
-      - key: DB_HOST
-        value: askimate-db
-      - key: DB_PORT
-        value: "5432"
     healthCheckPath: /health
     autoDeploy: true
 
@@ -53,33 +27,28 @@ services:
 envVarGroups:
   - name: askimate-env
     envVars:
-      # Django settings
       - key: DJANGO_SECRET_KEY
         value: "change-me"
       - key: DEBUG
         value: "False"
-
-      # Database
       - key: DB_NAME
         value: "change-me"
       - key: DB_USER
         value: "change-me"
       - key: DB_PASSWORD
         value: "change-me"
-
-      # Email
+      - key: DB_HOST
+        value: "change-me"
+      - key: DB_PORT
+        value: "5432"
       - key: EMAIL_HOST_USER
         value: "change-me"
       - key: EMAIL_HOST_PASSWORD
         value: "change-me"
-
-      # Google OAuth2
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
         value: "change-me"
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
         value: "change-me"
-
-      # AWS / Bedrock (برای AI App)
       - key: AWS_REGION
         value: "change-me"
       - key: BEDROCK_ENDPOINT
