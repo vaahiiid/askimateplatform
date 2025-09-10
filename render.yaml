@@ -2,6 +2,7 @@ services:
   # Persistent PostgreSQL database
   - type: pserv
     name: askimate-db
+    runtime: postgresql
     plan: standard
     envVars:
       - key: POSTGRES_DB
