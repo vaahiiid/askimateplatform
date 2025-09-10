@@ -3,7 +3,7 @@ services:
   - type: web
     name: askimate-mainplatform
     env: docker
-    dockerfilePath: ./mainplatform/Dockerfile
+    dockerfilePath: ./Dockerfile
     dockerCommand: >
       /bin/sh -c "python manage.py migrate &&
                   python manage.py collectstatic --noinput &&
@@ -16,7 +16,7 @@ services:
   - type: web
     name: askimate-ai-app
     env: docker
-    dockerfilePath: ./ai_app/Dockerfile
+    dockerfilePath: ./AskiMate_main_platform/ai_app/Dockerfile
     dockerCommand: uvicorn chat_app:app --host 0.0.0.0 --port 8000
     envVars:
       - fromGroup: askimate-env
@@ -32,13 +32,13 @@ envVarGroups:
       - key: DEBUG
         value: "False"
       - key: DB_NAME
-        value: "change-me"
+        value: "askimate_db"
       - key: DB_USER
-        value: "change-me"
+        value: "askimate_user"
       - key: DB_PASSWORD
-        value: "change-me"
+        value: "dmgBKRlYDbl4EyYx1ajz0dJNrT6xgUdQ"
       - key: DB_HOST
-        value: "change-me"
+        value: "dpg-d30k7gf9dies7381el2g-a"
       - key: DB_PORT
         value: "5432"
       - key: EMAIL_HOST_USER
