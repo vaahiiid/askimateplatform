@@ -1,15 +1,16 @@
 # Base image
 FROM python:3.11-slim
 
-# Environment variables (FORCE_REBUILD تغییر بده هر بار که میخوای کش شکسته شه)
+# Environment variables
+# FORCE_REBUILD را هر بار که می‌خواهی کش بیلد شکسته شود تغییر بده
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    FORCE_REBUILD=2025-09-10-3
+    FORCE_REBUILD=2025-09-10-4
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies (add dos2unix and file for debugging line endings)
+# Install dependencies: build tools, PostgreSQL libs, dos2unix for CRLF→LF, file for debug
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
@@ -17,24 +18,23 @@ RUN apt-get update && apt-get install -y \
     file \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy only requirements first to leverage caching for dependencies
+# Install Python dependencies first for better caching
 COPY ./AskiMate_main_platform/mainplatform/requirements.txt ./requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy manage.py separately and normalize line endings (remove CRLF & BOM)
-COPY ./AskiMate_main_platform/mainplatform/manage.py ./manage.py
-RUN file ./manage.py && \
-    head -n 2 ./manage.py && \
-    dos2unix ./manage.py && \
-    sed -i '1s/^\xEF\xBB\xBF//' ./manage.py && \
-    file ./manage.py && \
-    head -n 2 ./manage.py
-
-# Copy the rest of the Django project
+# Copy full Django project
 COPY ./AskiMate_main_platform/mainplatform/ ./
 
-# Expose port for Render
+# Normalize manage.py inside container to avoid BOM/CRLF issues
+RUN dos2unix ./manage.py && \
+    sed -i '1s/^\xEF\xBB\xBF//' ./manage.py && \
+    echo "---- manage.py (before run) ----" && \
+    file ./manage.py && \
+    head -n 2 ./manage.py && \
+    echo "--------------------------------"
+
+# Expose HTTP port for Render/Gunicorn
 EXPOSE 8000
 
-# Default command (as per render.yaml)
+# Run Gunicorn server
 CMD ["gunicorn", "AskiMate_platform.wsgi:application", "--bind", "0.0.0.0:8000"]
