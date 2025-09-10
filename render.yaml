@@ -4,7 +4,6 @@ services:
     name: askimate-mainplatform
     env: docker
     dockerfilePath: ./AskiMate_main_platform/mainplatform/Dockerfile
-    buildCommand: pip install -r AskiMate_main_platform/mainplatform/requirements.txt
     dockerCommand: >
       /bin/sh -c "python manage.py migrate &&
                   python manage.py collectstatic --noinput &&
@@ -18,7 +17,6 @@ services:
     name: askimate-ai-app
     env: docker
     dockerfilePath: ./AskiMate_main_platform/ai_app/Dockerfile
-    buildCommand: pip install -r AskiMate_main_platform/ai_app/requirements.txt
     dockerCommand: uvicorn chat_app:app --host 0.0.0.0 --port 8000
     envVars:
       - fromGroup: askimate-env
