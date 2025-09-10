@@ -1,10 +1,10 @@
+# Base image
 FROM python:3.9-slim
 
-# 1️⃣ ست کردن دایرکتوری کاری
+# Set working directory
 WORKDIR /app
 
-# 2️⃣ نصب دیپندنسی‌های سیستمی و curl برای healthcheck
-# - apt-clean برای کم کردن حجم ایمیج
+# Install system dependencies and tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     curl \
@@ -12,20 +12,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     unzip \
  && rm -rf /var/lib/apt/lists/*
 
-# 3️⃣ کپی requirements.txt برای استفاده از کش لایه‌ها
-COPY requirements.txt .
+# Copy only requirements file first for better cache usage
+COPY ./AskiMate_main_platform/ai_app/requirements.txt ./requirements.txt
 
-# 4️⃣ نصب پکیج‌های پایتون
-RUN pip install --no-cache-dir -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# 5️⃣ نصب AWS CLI + boto3 فقط یکبار (برای Bedrock/AWS تست)
+# Install AWS CLI and boto3
 RUN pip install --no-cache-dir awscli boto3
 
-# 6️⃣ کپی کل سورس برنامه
-COPY . .
+# Copy the entire AI app source code
+COPY ./AskiMate_main_platform/ai_app/ ./
 
-# 7️⃣ پورت اپ
+# Expose port for the FastAPI app
 EXPOSE 8000
 
-# 8️⃣ اجرای پیش‌فرض (FastAPI با Uvicorn)
+# Start FastAPI with Uvicorn
 CMD ["uvicorn", "chat_app:app", "--host", "0.0.0.0", "--port", "8000"]
