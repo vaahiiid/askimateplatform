@@ -13,7 +13,7 @@ envVarGroups:
   - name: askimate-env
     envVars:
       - key: DJANGO_SECRET_KEY
-        value: "p()e(_(79r9(^7dr&x4g7j-obc&sczcm-^z!dln@f3-%mcizbi"
+        value: "${DJANGO_SECRET_KEY}"
       - key: DEBUG
         value: "False"
       - key: ALLOWED_HOSTS
@@ -21,30 +21,30 @@ envVarGroups:
       - key: AWS_REGION
         value: "us-east-1"
       - key: AWS_ACCESS_KEY_ID
-        value: "AKIAR3X4DS4D3OSFSZWY"
+        value: "${AWS_ACCESS_KEY_ID}"
       - key: AWS_SECRET_ACCESS_KEY
-        value: "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"
+        value: "${AWS_SECRET_ACCESS_KEY}"
       - key: DB_NAME
         value: "askimate_db"
       - key: DB_USER
         value: "askimate_user"
       - key: DB_PASSWORD
-        value: "dmgBKRlyDNbL4eYx1ajz0dJNrT6xgUdQ"
+        value: "${DB_PASSWORD}"
       - key: DB_HOST
         value: "dpg-d30k79fdiees7381el2g-a.oregon-postgres.render.com"
       - key: DB_PORT
         value: "5432"
       - key: EMAIL_HOST_USER
-        value: "askimatetest@gmail.com"
+        value: "${EMAIL_HOST_USER}"
       - key: EMAIL_HOST_PASSWORD
-        value: "yzxsftbhpjedpgdb"
+        value: "${EMAIL_HOST_PASSWORD}"
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-        value: "378044895994-rk77ab95a1j6tb7382prs7q29jtjm9a8.apps.googleusercontent.com"
+        value: "${SOCIAL_AUTH_GOOGLE_OAUTH2_KEY}"
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-        value: "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"
+        value: "${SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET}"
       - key: AI_API_URL
         value: "https://askimate-ai-service.onrender.com/chat/"
       - key: BEDROCK_ENDPOINT
         value: "bedrock-runtime.us-east-1.amazonaws.com"
       - key: HUGGING_FACE_TOKEN
-        value: "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"
+        value: "${HUGGING_FACE_TOKEN}"
