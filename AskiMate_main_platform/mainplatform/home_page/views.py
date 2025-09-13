@@ -21,7 +21,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.csrf import csrf_exempt
 from .models import ConversationSession, ChatMessage
 logger = logging.getLogger(__name__)
-AI_APP_URL = os.getenv("AI_API_URL", "http://ai_app:8000/chat/")
+AI_APP_URL = os.getenv("AI_API_URL", "https://askimate-ai-app.onrender.com/chat")
 
 
 def main_page(request):
@@ -327,4 +327,5 @@ def chatbot_new(request):
         user=request.user,
         user_language='English'  # زبان پیش‌فرض
     )
+
     return redirect('chatbot-main', session_id=new_session.session_id)
