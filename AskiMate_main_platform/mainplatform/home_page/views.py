@@ -213,7 +213,7 @@ def redirect_to_latest_chat(request):
     return redirect('chatbot-new')
 
 
-AI_APP_URL = "http://ai_app:8000/chat"  # آدرس سرویس FastAPI
+AI_APP_URL = "https://askimate-ai-app.onrender.com/chat"  # آدرس سرویس FastAPI
 
 @login_required
 @csrf_exempt  # یا حذف و استفاده از CSRF token هدر
@@ -329,3 +329,4 @@ def chatbot_new(request):
     )
 
     return redirect('chatbot-main', session_id=new_session.session_id)
+
