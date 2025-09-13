@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import dj_database_url
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -67,15 +66,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "AskiMate_platform.wsgi.application"
 
-# پایگاه داده
+# پایگاه داده با SSL
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST", "db"),
+        "NAME": os.getenv("DB_NAME", "askimate_db"),
+        "USER": os.getenv("DB_USER", "askimate_user"),
+        "PASSWORD": os.getenv("DB_PASSWORD", ""),
+        "HOST": os.getenv("DB_HOST", ""),
         "PORT": os.getenv("DB_PORT", 5432),
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
 
