@@ -1,59 +1,50 @@
 services:
-  # Django Main Platform
   - type: web
-    name: askimate-mainplatform
-    env: docker
-    dockerfilePath: ./AskiMate_main_platform/mainplatform/Dockerfile
-    dockerCommand: >
-      /bin/sh -c "python3 manage.py migrate &&
-                  python3 manage.py collectstatic --noinput &&
-                  gunicorn AskiMate_main_platform.wsgi:application --bind 0.0.0.0:8000"
-    envVars:
-      - fromGroup: askimate-env
+    name: aski-mate-main-platform
+    env: python
+    plan: free
     autoDeploy: true
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn AskiMate_main_platform.wsgi:application --bind 0.0.0.0:8000"
+    envVarGroups:
+      - name: askimate-env
 
-  # AI App Service
-  - type: web
-    name: askimate-ai-app
-    env: docker
-    dockerfilePath: ./AskiMate_main_platform/ai_app/Dockerfile
-    dockerCommand: uvicorn chat_app:app --host 0.0.0.0 --port 8000
-    envVars:
-      - fromGroup: askimate-env
-    healthCheckPath: /health
-    autoDeploy: true
-
-# گروه متمرکز متغیرهای محیطی
 envVarGroups:
   - name: askimate-env
     envVars:
       - key: DJANGO_SECRET_KEY
-        value: "change-me"
+        value: "p()e(_(79r9(^7dr&x4g7j-obc&sczcm-^z!dln@f3-%mcizbi"
       - key: DEBUG
         value: "False"
+      - key: ALLOWED_HOSTS
+        value: "askimate-ai.onrender.com,askimateai.com,www.askimateai.com"
+      - key: AWS_REGION
+        value: "us-east-1"
+      - key: AWS_ACCESS_KEY_ID
+        value: "AKIAR3X4DS4D3OSFSZWY"
+      - key: AWS_SECRET_ACCESS_KEY
+        value: "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"
       - key: DB_NAME
         value: "askimate_db"
       - key: DB_USER
         value: "askimate_user"
       - key: DB_PASSWORD
-        value: "dmgBKRlYDbl4EyYx1ajz0dJNrT6xgUdQ"
+        value: "dmgBKRlyDNbL4eYx1ajz0dJNrT6xgUdQ"
       - key: DB_HOST
-        value: "dpg-d30k7gf9dies7381el2g-a"
+        value: "dpg-d30k79fdiees7381el2g-a.oregon-postgres.render.com"
       - key: DB_PORT
         value: "5432"
       - key: EMAIL_HOST_USER
-        value: "change-me"
+        value: "askimatetest@gmail.com"
       - key: EMAIL_HOST_PASSWORD
-        value: "change-me"
+        value: "yzxsftbhpjedpgdb"
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-        value: "change-me"
+        value: "378044895994-rk77ab95a1j6tb7382prs7q29jtjm9a8.apps.googleusercontent.com"
       - key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
-        value: "change-me"
-      - key: AWS_REGION
-        value: "change-me"
+        value: "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"
+      - key: AI_API_URL
+        value: "https://askimate-ai-service.onrender.com/chat/"
       - key: BEDROCK_ENDPOINT
-        value: "change-me"
-      - key: AWS_ACCESS_KEY_ID
-        value: "change-me"
-      - key: AWS_SECRET_ACCESS_KEY
-        value: "change-me"
+        value: "bedrock-runtime.us-east-1.amazonaws.com"
+      - key: HUGGING_FACE_TOKEN
+        value: "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"
