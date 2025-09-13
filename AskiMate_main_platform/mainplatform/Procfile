@@ -1,3 +1,1 @@
-web: gunicorn AskiMate_main_platform.mainplatform.AskiMate_platform.wsgi
-
-
+web: gunicorn AskiMate_platform.wsgi
